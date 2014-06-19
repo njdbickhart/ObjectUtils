@@ -54,4 +54,25 @@ public class SimpleCmdLineParser extends GetCmdOpt{
             System.exit(-1);
         }
     }
+    
+    /**
+     * This wraps the parity checking and argument parsing of the GetCmdOpt abstract class.
+     * It does not allow mode designation for programs, but it includes larger key associations
+     * for easy readability of command line option codes
+     * @param args The program's command line options
+     * @param flags The flag string (see javadocs for GetCmdOpt for this two character scheme)
+     * @param required A concatenated string containing the required flags for the program
+     * @param associate A concatenated string containing the flags for the subsequent largerKeys array
+     * @param largerKeys An array of names to associate with the argument flags. WARNING: must be the same number as the characters in the 
+     * "associate" string!
+     */
+    public void GetAndCheckOpts(String[] args, String flags, String required, String associate, String ... largerKeys){
+        try{
+            this.GetAndCheckOpts(args, flags, required);
+            this.AssociateKeyWithLargerString(associate, largerKeys);
+        }catch(Exception ex){
+            System.out.println("Error with programmer input!" + ex.getMessage());
+            System.exit(-1);
+        }
+    }
 }

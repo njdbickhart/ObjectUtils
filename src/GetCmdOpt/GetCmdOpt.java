@@ -89,6 +89,28 @@ public abstract class GetCmdOpt {
         this.mode = args[0];
         this.ProcessCmdString(newArgs, keys);
     }
+    
+    
+    /**
+     * This method associates existing command line keys with input string values.
+     * This is done simply for programmer readability when calling the "GetValue" method
+     * @param k A concatenated string of key values that will be replaced by larger strings
+     * @param a The larger strings to replace the aforementioned "k" keys. WARNING: must be the same size as
+     * the number of characters in the "k" string!
+     * @throws Exception 
+     */
+    public void AssociateKeyWithLargerString(String k, String ... a) throws Exception{
+        String[] keys = k.split("(?!^)");
+        if(keys.length != a.length)
+            throw new Exception("[GETOPT] Have not assigned appropriate number of keys!");
+        
+        for(int x = 0; x < keys.length; x++){
+            if(this.values.containsKey(keys[x]))
+                this.values.put(a[x], this.values.get(keys[x]));
+            else
+                throw new Exception("[GETOPT] Key not found in hash! Cannot associate larger key value!");
+        }
+    }
     /**
      * This is a simple check to ensure that the user has input the mandatory
      * command line keys into the command line arguments
@@ -123,5 +145,14 @@ public abstract class GetCmdOpt {
         return this.usage;
     }
     
-    
+    /**
+     * Returns a key if it is in the hash
+     * @param k The key to search for in the command line options
+     */
+    public String GetValue(String k){
+        if(this.values.containsKey(k))
+            return this.values.get(k);
+        else
+            return null;
+    }
 }
