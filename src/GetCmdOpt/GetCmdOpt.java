@@ -27,14 +27,7 @@ public abstract class GetCmdOpt {
      */
     protected String usage = null;
     
-    /**
-     * This is a simple "setter" for the usage string
-     * @param usage The string that will print when the program encounters a "help" flag
-     * or has the improper amount of arguments
-     */
-    public void SetUsageStatement(String usage){
-        this.usage = usage;
-    }
+    
     
     /**
      * This method strips the command line argument string array down to its basic elements
@@ -154,5 +147,33 @@ public abstract class GetCmdOpt {
             return this.values.get(k);
         else
             return null;
+    }
+    
+    /**
+     * Checks to see if an option has been set for this flag
+     * @param k cmd line option to check
+     * @return "True" if the option exists; "False" if it does not
+     */
+    public boolean HasOpt(String k){
+        return this.values.containsKey(k);
+    }
+    
+    /**
+     * This is a simple "setter" for the usage string
+     * @param usage The string that will print when the program encounters a "help" flag
+     * or has the improper amount of arguments
+     */
+    public void SetUsageStatement(String usage){
+        this.usage = usage;
+    }
+    
+    /**
+     * This is an encapsulated way for the programmer to set individual values in 
+     * the options hash.
+     * @param key Key to set/replace
+     * @param value Value to associate
+     */
+    public void SetValue(String key, String value){
+        this.values.put(key, value);
     }
 }
