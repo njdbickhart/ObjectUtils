@@ -19,6 +19,13 @@ public class SimpleCmdLineParser extends GetCmdOpt{
     }
     
     /**
+     * This is an empty constructor for subclasses. Just in case
+     */
+    public SimpleCmdLineParser(){
+        
+    }
+    
+    /**
      * This wraps the parity checking and argument parsing of the GetCmdOpt abstract class.
      * It does not allow mode designation for programs, but it is a very fast and simple 
      * implementation designed to create fast command line options for a program.
