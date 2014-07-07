@@ -85,6 +85,10 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
      * programs "main" routine.
      */
     public void GetAndCheckMode(String[] args){
+        if(args.length == 0){
+            // We have no input args, lets print the default usage
+            PrintDefaultUsage();
+        }
         try{
             if(!holder.containsKey(args[0])){
                 System.out.println("Error! Must input a mode for the program!");
@@ -100,6 +104,11 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
         }
     }
     
+    private void PrintDefaultUsage(){
+        System.err.println(usage);
+        System.exit(0);
+    }
+    
     private class ModeParser extends SimpleCmdLineParser{
         private String flags = null;
         private String required = null;
@@ -108,9 +117,11 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
         
         
         public void GetAndCheckOpts(String[] args) throws Exception{
+            if(args.length == 1 && flags != null)
+                PrintUsageExit();
             if(flags == null || required == null || associate == null || largerkeys == null)
                 throw new Exception("Programmer error with ModeParser class instantiation!");
-            String[] slice = Arrays.copyOfRange(args, 1, args.length - 1);
+            String[] slice = Arrays.copyOfRange(args, 1, args.length);
             super.GetAndCheckOpts(slice, flags, required, associate, largerkeys);
         }
         
@@ -122,6 +133,12 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
             this.flags = flags;
             this.required = required;
             this.associate = associate;
+            this.largerkeys = largerkeys;
+        }
+        
+        private void PrintUsageExit(){
+            System.err.println(usage);
+            System.exit(0);
         }
     }
 }

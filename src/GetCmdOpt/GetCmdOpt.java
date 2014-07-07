@@ -53,6 +53,10 @@ public abstract class GetCmdOpt {
             if(!format.equals(":") && !format.equals("|"))
                 throw new Exception("[GETOPT] The key value must be a \":\" or a \"|\"!");
             
+            // Set boolean flags to false by default
+            if(format.equals("|"))
+                this.values.put(k, "false");
+            
             for(int x = 0; x < args.length; x++){
                 if(args[x].equals("-" + k)){
                     if(format.equals(":"))
