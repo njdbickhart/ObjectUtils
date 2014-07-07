@@ -57,7 +57,9 @@ public class SimpleCmdLineParser extends GetCmdOpt{
                 System.exit(0);
             }
         }catch(Exception ex){
+            
             System.out.println("Error with programmer input!" + ex.getMessage());
+            ex.printStackTrace();
             System.exit(-1);
         }
     }
@@ -79,6 +81,7 @@ public class SimpleCmdLineParser extends GetCmdOpt{
             this.AssociateKeyWithLargerString(associate, largerKeys);
         }catch(Exception ex){
             System.out.println("Error with programmer input!" + ex.getMessage());
+            ex.printStackTrace();
             System.exit(-1);
         }
     }

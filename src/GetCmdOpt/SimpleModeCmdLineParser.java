@@ -100,6 +100,7 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
             holder.get(args[0]).GetAndCheckOpts(args);
         }catch(Exception ex){
             System.err.println(ex.getMessage());
+            ex.printStackTrace();
             System.exit(-1);
         }
     }

@@ -104,8 +104,6 @@ public abstract class GetCmdOpt {
         for(int x = 0; x < keys.length; x++){
             if(this.values.containsKey(keys[x]))
                 this.values.put(a[x], this.values.get(keys[x]));
-            else
-                throw new Exception("[GETOPT] Key not found in hash! Cannot associate larger key value!");
         }
     }
     /**
