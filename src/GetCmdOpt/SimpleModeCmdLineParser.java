@@ -105,6 +105,16 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
         }
     }
     
+    /**
+     * Checks to see if an option has been set for this flag
+     * @param k cmd line option to check
+     * @return "True" if the option exists; "False" if it does not
+     */
+    @Override
+    public boolean HasOpt(String k){
+        return this.holder.get(CurrentMode).values.containsKey(k);
+    }
+    
     private void PrintDefaultUsage(){
         System.err.println(usage);
         System.exit(0);

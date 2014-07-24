@@ -6,7 +6,6 @@
 
 package StrUtils;
 
-import implement.BedSimple;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +14,8 @@ import java.util.ArrayList;
  */
 public class StrArray {
     public static String Join(ArrayList<String> a, String delimiter){
+        if(a.isEmpty())
+            return "";
         String ret = a.get(0);
         for(int i = 1; i < a.size(); i++){
             ret += delimiter + a.get(i);
