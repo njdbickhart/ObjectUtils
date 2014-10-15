@@ -143,6 +143,7 @@ public abstract class GetCmdOpt {
     /**
      * Returns a key if it is in the hash
      * @param k The key to search for in the command line options
+     * @return The string representation of the argument input value
      */
     public String GetValue(String k){
         if(this.values.containsKey(k))
