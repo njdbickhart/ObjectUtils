@@ -121,10 +121,10 @@ public abstract class GetCmdOpt {
         }
         return true;
     }
-    private void populateValueString(String k, String value){
+    protected void populateValueString(String k, String value){
         this.values.put(k, value);
     }
-    private void populateBooleanFlag(String k){
+    protected void populateBooleanFlag(String k){
         this.values.put(k, "true");
     }
     
