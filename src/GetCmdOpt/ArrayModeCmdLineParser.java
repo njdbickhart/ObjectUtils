@@ -3,54 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package GetCmdOpt;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  *
- * @author bickhart
+ * @author Derek.Bickhart
  */
-public class SimpleModeCmdLineParser extends GetCmdOpt{
-    private Map<String, ModeParser> holder;
-
+public class ArrayModeCmdLineParser extends GetCmdOpt{
+    private Map<String, ArrayModeParser> holder;
+    
     /**
      * The current mode selected by the user for the program.
      */
     public String CurrentMode = null;
-    
-    /**
-     * This constructor requires that the programmer give the object the default
-     * usage message for the program (in case the user does not enter a correct 
-     * mode value) and the anticipated "modes" for the program. "Modes" are the
-     * first argument of the program by default. For example: java -jar cool.jar
-     *  search -a hey ; the "search" argument sets the command.
-     * @param defaultUsage A default usage statement in case the mode is not
-     * selected by the user
-     * @param modes Anticipated mode values for the program
-     */
-    public SimpleModeCmdLineParser(String defaultUsage, String ... modes){
+
+    public ArrayModeCmdLineParser(String defaultUsage, String... modes) {
         this.usage = defaultUsage;
         this.holder = new HashMap<>();
         for(String s : modes){
-            this.holder.put(s, new ModeParser());
+            this.holder.put(s, new ArrayModeParser());
         }
-    }
-    
-    public SimpleModeCmdLineParser(){
-        // empty constructor for subclassing
-    }
-    
-    @Override
-    public String GetValue(String k){
-        if(CurrentMode == null){
-            System.err.println("Programmer error with commandline parser structure! Must select a mode before retrieving values!");
-            System.exit(-1);
-        }
-        return holder.get(CurrentMode).GetValue(k);
     }
     
     /**
@@ -75,7 +53,7 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
         }
             
         if(!holder.containsKey(mode))
-            holder.put(mode, new ModeParser());
+            holder.put(mode, new ArrayModeParser());
         
         holder.get(mode).SetUsage(usage);
         holder.get(mode).SetMetaData(flags, required, associate, largerkeys);
@@ -109,14 +87,21 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
         }
     }
     
-    /**
-     * Checks to see if an option has been set for this flag
-     * @param k cmd line option to check
-     * @return "True" if the option exists; "False" if it does not
-     */
     @Override
-    public boolean HasOpt(String k){
-        return this.holder.get(CurrentMode).values.containsKey(k);
+    public String GetValue(String k){
+        if(CurrentMode == null){
+            System.err.println("Programmer error with commandline parser structure! Must select a mode before retrieving values!");
+            System.exit(-1);
+        }
+        return holder.get(CurrentMode).GetValue(k);
+    }
+    
+    public List<String> GetArray(String k){
+        if(CurrentMode == null){
+            System.err.println("Programmer error with commandline parser structure! Must select a mode before retrieving values!");
+            System.exit(-1);
+        }
+        return holder.get(CurrentMode).GetArray(k);
     }
     
     private void PrintDefaultUsage(){
@@ -124,7 +109,7 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
         System.exit(0);
     }
     
-    private class ModeParser extends SimpleCmdLineParser{
+    private class ArrayModeParser extends ArrayCmdLineParser{
         private String flags = null;
         private String required = null;
         private String associate = null;
@@ -137,7 +122,7 @@ public class SimpleModeCmdLineParser extends GetCmdOpt{
             if(flags == null || required == null || associate == null || largerkeys == null)
                 throw new Exception("Programmer error with ModeParser class instantiation!");
             String[] slice = Arrays.copyOfRange(args, 1, args.length);
-            super.GetAndCheckOpts(slice, flags, required, associate, largerkeys);
+            this.GetAndCheckOpts(slice, flags, required, associate, largerkeys);
         }
         
         public void SetUsage(String usage){
