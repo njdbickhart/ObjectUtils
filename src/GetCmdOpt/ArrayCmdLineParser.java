@@ -125,23 +125,24 @@ public class ArrayCmdLineParser extends SimpleCmdLineParser{
         if(keys.length != a.length)
             throw new Exception("[GETOPT] Have not assigned appropriate number of keys!");
         
-        log.log(Level.WARNING, "Keys: " + StrUtils.StrArray.Join(keys, " "));
         for(int x = 0; x < keys.length; x++){
-            switch(this.cmdtypes.get(keys[x])){
-                case FLAG:
-                    this.cmdtypes.put(a[x], CmdType.FLAG);
-                    this.values.put(a[x], this.values.get(keys[x]));
-                    break;
-                case MAP:
-                    this.cmdtypes.put(a[x], CmdType.MAP);
-                    this.values.put(a[x], this.values.get(keys[x]));
-                    break;
-                case ARRAY:
-                    this.cmdtypes.put(a[x], CmdType.ARRAY);
-                    this.arrays.put(a[x], new ArrayList<String>());
-                    this.arrays.get(a[x]).addAll(this.arrays.get(keys[x]));
-                    break;
-            }            
+            if(this.cmdtypes.containsKey(keys[x])){
+                switch(this.cmdtypes.get(keys[x])){
+                    case FLAG:
+                        this.cmdtypes.put(a[x], CmdType.FLAG);
+                        this.values.put(a[x], this.values.get(keys[x]));
+                        break;
+                    case MAP:
+                        this.cmdtypes.put(a[x], CmdType.MAP);
+                        this.values.put(a[x], this.values.get(keys[x]));
+                        break;
+                    case ARRAY:
+                        this.cmdtypes.put(a[x], CmdType.ARRAY);
+                        this.arrays.put(a[x], new ArrayList<String>());
+                        this.arrays.get(a[x]).addAll(this.arrays.get(keys[x]));
+                        break;
+                }  
+            }
         }
     }
     
