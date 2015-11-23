@@ -9,12 +9,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Derek.Bickhart
  */
 public class ArrayCmdLineParser extends SimpleCmdLineParser{
+    private static final Logger log = Logger.getLogger(ArrayCmdLineParser.class.getName());
+    
     protected Map<String, List<String>> arrays = new HashMap<>();
     protected Map<String, CmdType> cmdtypes = new HashMap<>();
     
@@ -121,6 +125,7 @@ public class ArrayCmdLineParser extends SimpleCmdLineParser{
         if(keys.length != a.length)
             throw new Exception("[GETOPT] Have not assigned appropriate number of keys!");
         
+        log.log(Level.FINE, "Keys: " + StrUtils.StrArray.Join(keys, " "));
         for(int x = 0; x < keys.length; x++){
             switch(this.cmdtypes.get(keys[x])){
                 case FLAG:
