@@ -125,7 +125,7 @@ public class ArrayCmdLineParser extends SimpleCmdLineParser{
         if(keys.length != a.length)
             throw new Exception("[GETOPT] Have not assigned appropriate number of keys!");
         
-        log.log(Level.FINE, "Keys: " + StrUtils.StrArray.Join(keys, " "));
+        log.log(Level.WARNING, "Keys: " + StrUtils.StrArray.Join(keys, " "));
         for(int x = 0; x < keys.length; x++){
             switch(this.cmdtypes.get(keys[x])){
                 case FLAG:
