@@ -88,6 +88,15 @@ public class ArrayModeCmdLineParser extends GetCmdOpt{
     }
     
     @Override
+    public boolean HasOpt(String k){
+        if(CurrentMode == null){
+            System.err.println("Programmer error with commandline parser structure! Must select a mode before retrieving values!");
+            System.exit(-1);
+        }
+        return holder.get(CurrentMode).HasOpt(k);
+    }
+    
+    @Override
     public String GetValue(String k){
         if(CurrentMode == null){
             System.err.println("Programmer error with commandline parser structure! Must select a mode before retrieving values!");
